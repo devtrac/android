@@ -852,6 +852,7 @@ PhoneGap.JSCallbackPolling = function() {
             try {
                 var t = eval(""+msg);
             }
+			
             catch (e) {
                 console.log("JSCallbackPolling: Message from Server: " + msg);
                 console.log("JSCallbackPolling Error: "+e);
