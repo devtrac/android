@@ -20,22 +20,20 @@ function Common(){
 
     this.XHR = function(data, successCallback, errorCallback){
 		try{
-			$.ajax({
+			var request = $.ajax({
             url: DT.SERVICE_ENDPOINT,
             type: 'post',
             data: devtrac.common.convertHash(data),
             dataType: 'json',
+			timeout: 10000,
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('page_login_submit - failed to login');
-                console.log(JSON.stringify(XMLHttpRequest));
-                console.log(JSON.stringify(textStatus));
-                console.log(JSON.stringify(errorThrown));
+                alert('request failed, since '+ textStatus);
                 errorCallback();
             },
             success: function (data) {
                 successCallback(data);
 				console.log("Send XHR command success" + data);
-            }
+            },
         });
 		}
 		catch(error){

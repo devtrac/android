@@ -6,6 +6,7 @@ var devtrac = {
     dataPull: new DataPull(),
     dataPush: new DataPush(),
     dataStore: new DataStore(),
+    localStore: new LocalStore(),
     siteDetailController: new SiteDetailController(),
     questionsController: new QuestionsController(),
     contactInfoController: new ContactInfoController(),

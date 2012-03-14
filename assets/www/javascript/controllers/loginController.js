@@ -15,7 +15,40 @@ LoginController.prototype.login = function(){
         alert("Please enter username and password.");
         return;
     }
-
+     var renderView =function(){
+	 devtrac.localStore.put('user', JSON.stringify(devtrac.user));
+     devtrac.dataStore.getQuestions(function(){
+        devtrac.dataStore.getPlaces(function(){
+            devtrac.dataStore.getProfiles(function(){
+                if (devtrac.questions && devtrac.places && devtrac.profiles) {
+                    // Check if fieldtrip is locally available for current user
+                    devtrac.dataStore.retrieveFieldTrip(function(){
+                        if (devtrac.fieldTrip && devtrac.fieldTrip.id) {
+                            fieldTripController.showTripReports();
+                            return;
+                        }
+                        // No fieldtrip exist for user. Download the details.
+                        devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                    });
+                }
+                else {
+                    devtrac.dataPull.questions(function(){
+                        // Check if fieldtrip is locally available for current user
+                        devtrac.dataStore.retrieveFieldTrip(function(){
+                            if (devtrac.fieldTrip && devtrac.fieldTrip.id) {
+                                fieldTripController.showTripReports();
+                                return;
+                            }
+                            // No fieldtrip exist for user. Download the details.
+                            devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                        });
+                    });
+                }
+            })
+        });
+    });
+  };
+	 
 //    var renderView = function(){
 //        navigator.store.put(function(){
 //            devtrac.dataStore.getQuestions(function(){
@@ -53,7 +86,7 @@ LoginController.prototype.login = function(){
 //            devtrac.common.logAndShowGenericError("Error in saving: " + devtrac.user.name);
 //        }, "user", JSON.stringify(devtrac.user));
 //    };
-//    
+    
 	var renderWelcomeView = function(){
       alert("welcome " + userName);
 	  devtrac.loginController.show();	

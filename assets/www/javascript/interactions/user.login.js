@@ -22,14 +22,10 @@ function authenticate(userName, password, successCallback, failedCallback){
                 hash: devtrac.common.generateHash(DT.USER_LOGIN, timestamp)
             };
 			
-			console.log("Before send login XHR");
             devtrac.common.XHR(params, successCallback, failedCallback);
         }
     };
-	console.log("Before send connect XHR");
-    devtrac.common.XHR({
-        method: DT.SYSTEM_CONNECT
-    }, connectCallback, failedCallback);
+    devtrac.common.XHR({method: DT.SYSTEM_CONNECT}, connectCallback, failedCallback);
     
 }
 

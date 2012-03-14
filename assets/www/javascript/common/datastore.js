@@ -3,23 +3,20 @@ function DataStore(){
 }
 
 DataStore.prototype.init = function(callback){
-    navigator.store.get(function(response){
-        if (response) {
-            devtrac.user = JSON.parse(response);
-            devtrac.dataStore.getQuestions(function(){
-                devtrac.dataStore.getPlaces(function(){
-                    devtrac.dataStore.getProfiles(function(){
-                        devtrac.dataStore.retrieveFieldTrip(callback);
-                    });
+    var userValue = devtrac.localStore.get('user');
+    if (userValue) {
+        devtrac.user = JSON.parse(userValue);
+        devtrac.dataStore.getQuestions(function(){
+            devtrac.dataStore.getPlaces(function(){
+                devtrac.dataStore.getProfiles(function(){
+                    devtrac.dataStore.retrieveFieldTrip(callback);
                 });
             });
-        }
-        else {
-            callback();
-        }
-    }, function(error){
+        });
+    }
+    else {
         callback();
-    }, "user");
+    }
 }
 
 DataStore.prototype.retrieveFieldTrip = function(callback){
@@ -35,48 +32,31 @@ DataStore.prototype.retrieveFieldTrip = function(callback){
             }
         });
     }
-    
-    navigator.store.get(function(response){
-        if (response) {
-            devtrac.fieldTrip = JSON.parse(response);
-            portOldImages();
-            if (callback) {
-                callback();
-            }
-        }
-        else {
-            callback();
-        }
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Offline storage error: " + error);
-        if (callback) {
-            callback();
-        }
-    }, devtrac.user.name);
+    var value = devtrac.localStore.get(devtrac.user.name);
+    if (value) {
+	    devtrac.fieldTrip = JSON.parse(value);
+	    portOldImages();
+	    if (callback) {
+	        callback();
+	    }
+    }else{
+	callback();	
+	}
 }
 
 DataStore.prototype.removeFieldTrip = function(callback){
-    navigator.store.remove(function(response){
-        navigator.log.debug("Removed current user field trip from datastore.");
-        if (callback) {
+    devtrac.localStore.remove(devtrac.user.name);
+	 if (callback) {
             callback();
         }
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Offline storage error: " + error);
-        if (callback) {
-            callback();
-        }
-    }, devtrac.user.name);
 }
 
 DataStore.prototype.saveFieldTrip = function(callback){
-    navigator.log.debug("Storing field trip: " + devtrac.fieldTrip.title);
-    navigator.store.put(function(){
-        callback();
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Could not update field trip. Error: " + error);
-        callback();
-    }, devtrac.user.name, JSON.stringify(devtrac.fieldTrip));
+//    navigator.log.debug("Storing field trip: " + devtrac.fieldTrip.title);
+    devtrac.localStore.put(devtrac.user.name, JSON.stringify(devtrac.fieldTrip));
+	if (callback) {
+		callback();
+	}
 }
 
 DataStore.prototype.updateTripImageFid = function(imagePath, fid, callback){
@@ -114,60 +94,39 @@ DataStore.prototype.saveCurrentSite = function(callback){
 }
 
 DataStore.prototype.getQuestions = function(callback){
-    navigator.store.get(function(response){
-        if (response) {
-            devtrac.questions = JSON.parse(response);
-            if (callback) {
-                callback();
-            }
-        }
-        else {
-            callback();
-        }
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Offline storage error: " + error);
+    var value = devtrac.localStore.get('questions');
+	 if (value){
+        devtrac.questions = JSON.parse(value);
         if (callback) {
             callback();
         }
-    }, "questions");
+      }else {
+            callback();
+      }
 }
 
 DataStore.prototype.getPlaces = function(callback){
-    navigator.store.get(function(response){
-        if (response) {
-            devtrac.places = JSON.parse(response);
-            if (callback) {
-                callback();
-            }
-        }
-        else {
-            callback();
-        }
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Offline storage error: " + error);
+    var value = devtrac.localStore.get('placeTypes');
+     if (value){
+        devtrac.places = JSON.parse(value);
         if (callback) {
             callback();
         }
-    }, "placeTypes");
+      }else {
+            callback();
+      }
 }
 
 DataStore.prototype.getProfiles = function(callback){
-    navigator.store.get(function(response){
-        if (response) {
-            devtrac.profiles = JSON.parse(response);
-            if (callback) {
-                callback();
-            }
-        }
-        else {
-            callback();
-        }
-    }, function(error){
-        devtrac.common.logAndShowGenericError("Offline storage error: " + error);
+    var value = devtrac.localStore.get('profiles');
+     if (value){
+        devtrac.profiles = JSON.parse(value);
         if (callback) {
             callback();
         }
-    }, "profiles");
+      }else {
+            callback();
+      }
 }
 
 

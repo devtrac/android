@@ -1,0 +1,14 @@
+function LocalStore(){
+}
+
+LocalStore.prototype.put= function(key, value){
+	window.localStorage.setItem(key, value);
+}
+
+LocalStore.prototype.get= function(key){
+    window.localStorage.getItem(key);	
+}
+
+LocalStore.prototype.remove= function(){
+	window.localStorage.removeItem(key);
+}
