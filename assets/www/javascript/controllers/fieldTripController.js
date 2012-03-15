@@ -1,7 +1,7 @@
 var fieldTripController = new Object();
 
 fieldTripController.showTripReports = function(){
-	navigator.log.debug("Showing trip reports.");
+	console.log("Showing trip reports.");
     screens.show("loading");
     if (devtrac.user.loggedIn) {
         navigator.store.get(fieldTripController.display, function(error){
@@ -10,13 +10,13 @@ fieldTripController.showTripReports = function(){
         }, devtrac.user.name);
     }
     else {
-		navigator.log.debug("User not logged in. Will display login screen.");
+		console.log("User not logged in. Will display login screen.");
         devtrac.loginController.show();
     }
 };
 
 fieldTripController.display = function(response){
-	navigator.log.debug("Displaying trip reports");
+	console.log("Displaying trip reports");
     if (response) {
         devtrac.fieldTrip = JSON.parse(response);
         $("#trip_title").html(fieldTripController.siteTitle(devtrac.fieldTrip.title));
@@ -30,11 +30,11 @@ fieldTripController.display = function(response){
             return;
         }
         fieldTripController.paintSites();
-		navigator.log.debug("Displayed field trips.");
+		console.log("Displayed field trips.");
     }
     else {
         alert("You don't have active field trips.");
-		navigator.log.debug("No field trips for user. Logging out.");
+		console.log("No field trips for user. Logging out.");
         devtrac.loginController.logout();
     }
 }

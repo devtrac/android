@@ -20,7 +20,7 @@ DataStore.prototype.init = function(callback){
 }
 
 DataStore.prototype.retrieveFieldTrip = function(callback){
-    navigator.log.debug("Trying to retreive a field trip for user: " + devtrac.user.name);
+    console.log("Trying to retreive a field trip for user: " + devtrac.user.name);
     function portOldImages(){
         $.each(devtrac.fieldTrip.sites, function(index, site){
             if (site.photos && site.photos.length) {

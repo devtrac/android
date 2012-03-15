@@ -6,14 +6,16 @@ function DataPull(){
 
 DataPull.prototype.questions = function(callback){
     $("#status").html("");
-	navigator.log.debug("Requesting question download.");
+	console.log("Requesting question download.");
     var questionSuccess = function(questionResponse){
         if (devtrac.common.hasError(questionResponse)) {
+			console.log(JSON.stringify(questionResponse));
+			console.log("Questions response has error.");
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(questionResponse));
 			callback();
         }
         else {
-			navigator.log.debug("Received questions response.");
+			console.log("Received questions response.");
             var questions = $.map(questionResponse['#data'], function(item){
                 var question = new Question();
                 question.id = item.nid;
@@ -26,7 +28,7 @@ DataPull.prototype.questions = function(callback){
                     questionTaxonomy.name = item.taxonomy[id].name;
                     question.taxonomy.push(questionTaxonomy);
                 }
-				navigator.log.debug("Processed question with id: " + question.id);
+				console.log("Processed question with id: " + question.id);
                 return question;
             });
             
@@ -44,7 +46,7 @@ DataPull.prototype.questions = function(callback){
     };
     
     var questionFailed = function(){
-        navigator.log.debug("Downloading of questions failed.");
+        console.log("Downloading of questions failed.");
         callback();
     };
     
@@ -54,20 +56,20 @@ DataPull.prototype.questions = function(callback){
 }
 
 DataPull.prototype.placeTypes = function(callback){
-	navigator.log.debug("Requesting places to download.");
+	console.log("Requesting places to download.");
     var placesSuccess = function(placesResponse){
 		if (devtrac.common.hasError(placesResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(placesResponse));
             callback();
         }
         else {
-			navigator.log.debug("Received places response");
+			console.log("Received places response");
             var places = $.map(placesResponse['#data'], function(item){
                 var placeType = new PlaceType();
                 placeType.id = item.tid;
                 placeType.name = item.term_data_name;
                 placeType.parentId = item.term_data_term_hierarchy_tid ? item.term_data_term_hierarchy_tid : item.tid;
-				navigator.log.debug("Processed place with id: " + placeType.id);
+				console.log("Processed place with id: " + placeType.id);
                 return placeType;
             });
             
@@ -85,7 +87,7 @@ DataPull.prototype.placeTypes = function(callback){
     };
     
     var placesFailed = function(){
-        navigator.log.log("Error occured in places download.");
+        console.log("Error occured in places download.");
         callback();
     };
     
@@ -96,21 +98,21 @@ DataPull.prototype.placeTypes = function(callback){
 
 
 DataPull.prototype.userProfiles = function(callback){
-	navigator.log.debug("Requesting user profiles download.");
+	console.log("Requesting user profiles download.");
     var profilesSuccess = function(profilesResponse){
         if (devtrac.common.hasError(profilesResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(profilesResponse));
             callback();
         }
         else {
-			navigator.log.debug("Received user profiles response.");
+			console.log("Received user profiles response.");
             var profiles = $.map(profilesResponse['#data'], function(item){
                 var profile = new UserProfile();
                 profile.nid = item.nid;
                 profile.uid = item.uid;
                 profile.name = item.title;
                 profile.username = item.name;
-				navigator.log.debug("Processed user profile with id: " + profile.id);
+				console.log("Processed user profile with id: " + profile.id);
                 return profile;
             });
             
@@ -129,7 +131,7 @@ DataPull.prototype.userProfiles = function(callback){
     };
     
     var profilesFailed = function(){
-		navigator.log.log("Error occured in downloading user profiles.");
+		console.log("Error occured in downloading user profiles.");
         // Failed. Continue with callback function.
         callback();
     };
@@ -141,19 +143,19 @@ DataPull.prototype.userProfiles = function(callback){
 
 DataPull.prototype.tripDetails = function(callback){
     $("#status").html("");
-	navigator.log.debug("Requesting trip details.");
+	console.log("Requesting trip details.");
     var tripSuccess = function(tripResponse){
         if (devtrac.common.hasError(tripResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(tripResponse));
             callback();
         }
         else {
-			navigator.log.debug("Received trip details response.");
+			console.log("Received trip details response.");
             if (tripResponse["#data"].length > 0) {
                 devtrac.dataPull.fieldTrip.id = tripResponse["#data"][0]["nid"];
                 devtrac.dataPull.fieldTrip.title = tripResponse["#data"][0]["title"];
                 devtrac.dataPull.tripSiteDetails(callback);
-				navigator.log.debug("Processed trip with id: " + devtrac.dataPull.fieldTrip.id);
+				console.log("Processed trip with id: " + devtrac.dataPull.fieldTrip.id);
                 return;
             }
             alert("You don't have any active field trip. Please create a field trip.");
@@ -162,7 +164,7 @@ DataPull.prototype.tripDetails = function(callback){
     };
     
     var tripFailed = function(){
-		navigator.log.log("Error occured in downloading trip details.");
+		console.log("Error occured in downloading trip details.");
         // Failed. Continue with callback function.
         callback()();
     };
@@ -173,14 +175,14 @@ DataPull.prototype.tripDetails = function(callback){
 }
 
 DataPull.prototype.tripSiteDetails = function(callback){
-	navigator.log.debug("Requesting trip site details.");
+	console.log("Requesting trip site details.");
     var siteSuccess = function(siteResponse){
         if (devtrac.common.hasError(siteResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(siteResponse));
             callback();
         }
         else {
-			navigator.log.debug("Received trip site details response.");
+			console.log("Received trip site details response.");
             var sites = $.map(siteResponse['#data'], function(item){
                 var site = new Site();
                 site.id = item.nid;
@@ -191,7 +193,7 @@ DataPull.prototype.tripSiteDetails = function(callback){
                 if (item.field_ftritem_narrative.length > 0 && item.field_ftritem_narrative[0].value) {
                     site.narrative = item.field_ftritem_narrative[0].value;
                 }
-				navigator.log.debug("Processed site with id: " + site.id);
+				console.log("Processed site with id: " + site.id);
                 devtrac.dataPull.sites.push(site);
                 return site;
             });
@@ -200,13 +202,13 @@ DataPull.prototype.tripSiteDetails = function(callback){
                 devtrac.dataPull.saveFieldtrip(callback);
                 return;
             }
-			navigator.log.debug("Requesting details of place for sites.");
+			console.log("Requesting details of place for sites.");
             devtrac.dataPull.placeDetailsForSite(callback);
         }
     };
     
     var siteFailed = function(){
-		navigator.log.log("Error occured in downloading site details.");
+		console.log("Error occured in downloading site details.");
         // Failed. Continue with callback function.
         callback();
     };
@@ -219,20 +221,20 @@ DataPull.prototype.tripSiteDetails = function(callback){
 
 DataPull.prototype.placeDetailsForSite = function(callback){
 	if (devtrac.dataPull.sites.length == 0) {
-        navigator.log.debug("No sites to process. Resuming.");
+       console.log("No sites to process. Resuming.");
 		callback();
         return;
     }
     
     var site = devtrac.dataPull.sites.pop();
-	navigator.log.debug("Requesting place details for site: " + site.id);
+	console.log("Requesting place details for site: " + site.id);
     var placeSuccess = function(placeResponse){
         if (devtrac.common.hasError(placeResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(placeResponse));
             callback();
         }
         else {
-			navigator.log.debug("Received place details for site: " + site.id);
+			console.log("Received place details for site: " + site.id);
             if (placeResponse["#data"].length > 0) {
                 var placeDetails = placeResponse["#data"][0];
                 site.placeId = placeDetails.nid;
@@ -261,11 +263,11 @@ DataPull.prototype.placeDetailsForSite = function(callback){
                     devtrac.dataPull.fieldTrip.sites[index] = site;
                     devtrac.dataPull.sitesForActionItems.push(site);
                     if (devtrac.dataPull.sites.length > 0) {
-						navigator.log.debug("Requesting place details for next site.");
+						console.log("Requesting place details for next site.");
                         devtrac.dataPull.placeDetailsForSite(callback);
                     }
                     else {
-						navigator.log.debug("Retrieved place details for all sites. Moving on to action item details.");
+						console.log("Retrieved place details for all sites. Moving on to action item details.");
                         devtrac.dataPull.actionItemDetailsForSite(callback);
                     }
                 }
@@ -274,11 +276,11 @@ DataPull.prototype.placeDetailsForSite = function(callback){
     };
     
     var placeFailed = function(){
-		navigator.log.log("Error occured in downloading place details for site.");
+		console.log("Error occured in downloading place details for site.");
         // Failed. Continue with callback function.
         callback();
     };
-    
+    console.log('showing pull status');
     screens.show("pull_status");
     devtrac.dataPull.updateStatus("Retrieving site details for '" + site.name + "'.");
     devtrac.remoteView.call('api_fieldtrips', 'page_4', '["' + site.id + '"]', placeSuccess, placeFailed);
@@ -287,12 +289,12 @@ DataPull.prototype.placeDetailsForSite = function(callback){
 
 DataPull.prototype.actionItemDetailsForSite = function(callback){
     if (devtrac.dataPull.sitesForActionItems.length == 0) {
-		navigator.log.debug("No sites to process for action items. Resuming.");
+		console.log.debug("No sites to process for action items. Resuming.");
         callback();
         return;
     }
     var site = devtrac.dataPull.sitesForActionItems.pop();
-	navigator.log.debug("Requesting action item details for site: " + site.id);
+	console.log("Requesting action item details for site: " + site.id);
     var actionItemSuccess = function(actionItemResponse){
         if (devtrac.common.hasError(actionItemResponse)) {
             devtrac.common.logAndShowGenericError(devtrac.common.getErrorMessage(actionItemResponse));
@@ -307,7 +309,7 @@ DataPull.prototype.actionItemDetailsForSite = function(callback){
                 actionItem.assignedTo = $.map(item.field_actionitem_responsible, function(user){
                     return user.uid;
                 }).join(", ");
-				navigator.log.debug("Processed action item: " + actionItem.title);
+				console.log("Processed action item: " + actionItem.title);
                 return actionItem;
             });
             site.actionItems = actionItems;
@@ -315,11 +317,11 @@ DataPull.prototype.actionItemDetailsForSite = function(callback){
                 if (siteFromCollection.id == site.id) {
                     devtrac.dataPull.fieldTrip.sites[index] = site;
                     if (devtrac.dataPull.sitesForActionItems.length > 0) {
-						navigator.log.debug("More sites available. Continuing to fetch action items.");
+						console.log("More sites available. Continuing to fetch action items.");
                         devtrac.dataPull.actionItemDetailsForSite(callback);
                     }
                     else {
-						navigator.log.debug("Finished downloading action items. Saving fieldtrip.");
+						console.log("Finished downloading action items. Saving fieldtrip.");
                         devtrac.dataPull.saveFieldtrip(callback);
                     }
                 }
@@ -328,7 +330,7 @@ DataPull.prototype.actionItemDetailsForSite = function(callback){
     };
     
     var actionItemFailed = function(){
-		navigator.log.debug("Error occured while downloading action items.");
+		console.log("Error occured while downloading action items.");
         // Failed. Continue with callback function.
         callback();
     };

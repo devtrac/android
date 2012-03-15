@@ -20,6 +20,7 @@ function Common(){
 
     this.XHR = function(data, successCallback, errorCallback){
 		try{
+			console.log('post data: ' + JSON.stringify(data));
 			var request = $.ajax({
             url: DT.SERVICE_ENDPOINT,
             type: 'post',
