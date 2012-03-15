@@ -1,10 +1,6 @@
 function Common(){
     this.callService = function(data, callback, errorCallback){
-       //navigator.log.debug("Network call with data: " + JSON.stringify(data));
-        navigator.notification.alert("Call service");
-        this.XHR(DT.SERVICE_ENDPOINT, devtrac.common.convertHash(data), callback, errorCallback);
-		//navigator.network.XHR(DT.SERVICE_ENDPOINT, devtrac.common.convertHash(data), callback, errorCallback);
-		navigator.notification.alert("Call service");
+        this.XHR(data, callback, errorCallback);
     }
     
     this.convertHash = function(hash){
@@ -26,7 +22,7 @@ function Common(){
             type: 'post',
             data: devtrac.common.convertHash(data),
             dataType: 'json',
-			timeout: 10000,
+			timeout: 30000,
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('request failed, since '+ textStatus);
                 errorCallback();

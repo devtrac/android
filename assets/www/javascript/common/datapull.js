@@ -31,17 +31,11 @@ DataPull.prototype.questions = function(callback){
 				console.log("Processed question with id: " + question.id);
                 return question;
             });
-            
-            navigator.store.put(function(){
-                devtrac.dataPull.updateStatus("Saved " + questions.length + " questions successfully.");
-				navigator.log.log("Saved " + questions.length + " questions successfully.");
-                devtrac.questions = questions;
-                devtrac.dataPull.placeTypes(callback);
-            }, function(){
-                devtrac.dataPull.updateStatus("Error in saving questions");
-				navigator.log.log("Error in saving questions");
-                callback();
-            }, "questions", JSON.stringify(questions));
+            devtrac.localStore.put("questions", JSON.stringify(questions));
+            devtrac.dataPull.updateStatus("Saved " + questions.length + " questions successfully.");
+            console.log("Saved " + questions.length + " questions successfully.");
+            devtrac.questions = questions;
+            devtrac.dataPull.placeTypes(callback);
         }
     };
     
@@ -73,15 +67,12 @@ DataPull.prototype.placeTypes = function(callback){
                 return placeType;
             });
             
-            navigator.store.put(function(){
-                devtrac.dataPull.updateStatus("Saved " + places.length + " place types successfully.");
-                devtrac.places = places;
-                devtrac.dataPull.userProfiles(callback);
-            }, function(){
-                devtrac.dataPull.updateStatus("Error in saving place types");
-				navigator.log.log("Error in saving place types");
-                callback();
-            }, "placeTypes", JSON.stringify(places));
+			devtrac.localStore.put("placeTypes", JSON.stringify(places));
+			
+            devtrac.dataPull.updateStatus("Saved " + places.length + " place types successfully.");
+            devtrac.places = places;
+            devtrac.dataPull.userProfiles(callback);
+
             
         }
     };
@@ -116,16 +107,12 @@ DataPull.prototype.userProfiles = function(callback){
                 return profile;
             });
             
-            navigator.store.put(function(){
-                devtrac.dataPull.updateStatus("Saved " + profiles.length + " user profiles successfully.");
-                navigator.log.debug("Saved " + profiles.length + " user profiles successfully.");
-                devtrac.profiles = profiles;
-                callback();
-            }, function(){
-                devtrac.dataPull.updateStatus("Error in saving user profiles");
-                navigator.log.log("Error in saving user profiles");
-                callback();
-            }, "profiles", JSON.stringify(profiles));
+			devtrac.localStore.put( "profiles", JSON.stringify(profiles));
+            devtrac.dataPull.updateStatus("Saved " + profiles.length + " user profiles successfully.");
+            console.log("Saved " + profiles.length + " user profiles successfully.");
+            devtrac.profiles = profiles;
+            callback();
+	
             
         }
     };
@@ -356,13 +343,9 @@ DataPull.prototype.getPlaceTypeFor = function(id){
 }
 
 DataPull.prototype.saveFieldtrip = function(callback){
-    navigator.store.put(function(){
-        devtrac.dataPull.updateStatus("Saved '" + devtrac.dataPull.fieldTrip.title + "' with action items successfully.");
-        callback();
-    }, function(){
-        devtrac.dataPull.updateStatus("Error in saving field trip.");
-        callback();
-    }, devtrac.user.name, JSON.stringify(devtrac.dataPull.fieldTrip));
+	devtrac.localStore.put(devtrac.user.name, JSON.stringify(devtrac.dataPull.fieldTrip));
+	devtrac.dataPull.updateStatus("Saved '" + devtrac.dataPull.fieldTrip.title + "' with action items successfully.");
+    callback();
 }
 
 var QuestionTypes = function(questions){

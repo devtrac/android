@@ -52,7 +52,6 @@ DataStore.prototype.removeFieldTrip = function(callback){
 }
 
 DataStore.prototype.saveFieldTrip = function(callback){
-//    navigator.log.debug("Storing field trip: " + devtrac.fieldTrip.title);
     devtrac.localStore.put(devtrac.user.name, JSON.stringify(devtrac.fieldTrip));
 	if (callback) {
 		callback();
