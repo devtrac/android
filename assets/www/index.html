@@ -89,14 +89,53 @@
                 </p>
                 <p>
                     <input type="button" name="login" id="login" class="button" value="Log In"/>
-					 <input type="button" name="logout" id="logout" class="button" value="Log Out"/>   
                 </p>
 				    <span id="login_settings_button" class="link">Settings</span>
 				<p>
 				</p>
             </div>
         </div>
-    </body>
+        <!-- Trip Details Screen -->
+        <div id="sites_to_visit" style="display: none">
+            <div class="toolbar">
+                <h1><span id="trip_title"></span></h1>
+            </div>
+            <div class="content">
+                <div class="right">
+                    <span id="add_new_site_button" class="link">Add New Site</span>
+                </div>
+                <div class="tip largebox" id="no_sites_in_trip">
+                    You don't have any sites to visit yet. Why not add one?
+                </div>
+                <div class="sites_list">
+                    <div id="list_trip">
+                        <h2>Sites to Visit</h2>
+                        <div class="grid grid_heading">
+                            <div class="col1">
+                                Name
+                            </div>
+                            <div class="col2">
+                                Type
+                            </div>
+                            <div class="col3">
+                                Visited
+                            </div>
+                        </div>
+                        <div id="site_list" class="grid">
+                        </div>
+                    </div>
+                    <div class="tip">
+                        Sites visited are marked <img src="css/images/icon_tick.gif"/>
+                    </div>
+                </div>
+                <div class="right">
+                    <span id="logout" name="logout" class="link">Change User</span>
+                    | <span id="upload_data" class="link">Upload Field Trip</span>
+                    | <span id="settings_button" class="link">Settings</span>
+                </div>
+            </div>
+        </div>
+	</body>
 	  <script type="text/javascript" charset="utf-8">
 
     // Wait for PhoneGap to load
