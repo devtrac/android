@@ -90,9 +90,7 @@
                 <p>
                     <input type="button" name="login" id="login" class="button" value="Log In"/>
                 </p>
-				    <span id="login_settings_button" class="link">Settings</span>
-				<p>
-				</p>
+                <span id="login_settings_button" class="link">Settings</span>
             </div>
         </div>
         <!-- Trip Details Screen -->
@@ -135,36 +133,5 @@
                 </div>
             </div>
         </div>
-	</body>
-	  <script type="text/javascript" charset="utf-8">
-
-    // Wait for PhoneGap to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
-		db.transaction(populateDB, errorCB, successCB);
-    }
-	
-	function populateDB(tx) {
-     tx.executeSql('DROP TABLE IF EXISTS DEMO');
-     tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
-     tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
-     tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
-}
-
-function errorCB(err) {
-    alert("Error processing SQL: "+err.code);
-}
-
-function successCB() {
-//    alert("success!");
-}
-
-
-    </script>
-
+  </body>
 </html>
