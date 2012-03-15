@@ -48,55 +48,11 @@ LoginController.prototype.login = function(){
         });
     });
   };
-	 
-//    var renderView = function(){
-//        navigator.store.put(function(){
-//            devtrac.dataStore.getQuestions(function(){
-//                devtrac.dataStore.getPlaces(function(){
-//                    devtrac.dataStore.getProfiles(function(){
-//                        if (devtrac.questions && devtrac.places && devtrac.profiles) {
-//                            // Check if fieldtrip is locally available for current user
-//                            devtrac.dataStore.retrieveFieldTrip(function(){
-//                                if (devtrac.fieldTrip && devtrac.fieldTrip.id) {
-//                                    fieldTripController.showTripReports();
-//                                    return;
-//                                }
-//                                // No fieldtrip exist for user. Download the details.
-//                                devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
-//                            });
-//                        }
-//                        else {
-//                            devtrac.dataPull.questions(function(){
-//                                // Check if fieldtrip is locally available for current user
-//                                devtrac.dataStore.retrieveFieldTrip(function(){
-//                                    if (devtrac.fieldTrip && devtrac.fieldTrip.id) {
-//                                        fieldTripController.showTripReports();
-//                                        return;
-//                                    }
-//                                    // No fieldtrip exist for user. Download the details.
-//                                    devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
-//                                });
-//                            });
-//                        }
-//                    })
-//                });
-//            });
-//            
-//        }, function(){
-//            devtrac.common.logAndShowGenericError("Error in saving: " + devtrac.user.name);
-//        }, "user", JSON.stringify(devtrac.user));
-//    };
-    
-	var renderWelcomeView = function(){
-      alert("welcome " + userName);
-	  devtrac.loginController.show();	
-	};
-	
     var loginFailed = function(){
         devtrac.loginController.show();
     };
     screens.show("loading");
-	devtrac.user.authenticate(userName, password, renderWelcomeView, loginFailed);
+	devtrac.user.authenticate(userName, password, renderView, loginFailed);
 };
 
 
