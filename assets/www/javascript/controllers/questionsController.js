@@ -4,7 +4,7 @@ function QuestionsController(){
 }
 
 QuestionsController.prototype.show = function(){
-    navigator.log.debug("Showing questions.");
+    console.log("Showing questions.");
 	screens.show("loading");
 	var container = $('.question-content');
     container.html("");
@@ -38,7 +38,7 @@ QuestionsController.prototype.show = function(){
     devtrac.questionsController.attachValidations();
     devtrac.questionsController.populateResponse();
     screens.show("questions_form");
-	navigator.log.debug("Displayed questions.");
+	console.log("Displayed questions.");
 }
 
 QuestionsController.prototype.listQuestion = function(q){

@@ -4,7 +4,7 @@ function ActionItemController(){
 
 ActionItemController.prototype.edit = function(actionItem){
     currentActionItem = actionItem;
-    navigator.log.debug("Editing action item");
+    console.log("Editing action item");
     screens.show("loading");
     $("#action_item_title_edit").val(actionItem.title);
     $("#action_item_task_edit").val(actionItem.task);
@@ -17,11 +17,11 @@ ActionItemController.prototype.edit = function(actionItem){
     $("#action_item_assigned_to_edit option[text=" + name + "]").attr("selected", "selected");
 
     screens.show("action_item_edit");
-    navigator.log.debug("Displayed action item screen");
+    console.log("Displayed action item screen");
 }
 
 ActionItemController.prototype.editSave = function(){
-    navigator.log.debug("Saving action item");
+    console.log("Saving action item");
     var title = $("#action_item_title_edit").val();
     var task = $("#action_item_task_edit").val();
     var assignedTo = $("#action_item_assigned_to_edit").val();
@@ -43,13 +43,13 @@ ActionItemController.prototype.editSave = function(){
     devtrac.currentSite.uploaded = false;
     devtrac.dataStore.saveCurrentSite(function(){
         alert("Edited action item.");
-        navigator.log.debug("Edited action item. Will display list.");
+        console.log("Edited action item. Will display list.");
         devtrac.actionItemController.show();
     });
 }
 
 ActionItemController.prototype.show = function(){
-    navigator.log.debug("Showing action items");
+    console.log("Showing action items");
     screens.show("loading");
     var actionItemGrid = $(".action_item_grid");
 
@@ -65,7 +65,7 @@ ActionItemController.prototype.show = function(){
     devtrac.actionItemController.displayActionItemsInCurrentSection(devtrac.currentSite.actionItems);
     actionItemGrid.show();
 
-    navigator.log.debug("Displayed action items");
+    console.log("Displayed action items");
     screens.show("list_action_items");
     attachClickEvents(".action_item", showActionItemEditScreen);
 }
@@ -100,7 +100,7 @@ ActionItemController.prototype._parseProfileName = function(actionItem){
 }
 
 ActionItemController.prototype.add = function(){
-    navigator.log.debug("Adding action item");
+    console.log("Adding action item");
     $("#action_item_title").val("");
     $("#action_item_task").val("");
     var users = $("#action_item_assigned_to");
@@ -109,11 +109,11 @@ ActionItemController.prototype.add = function(){
         users.append("<option value='" + profile.username + "'>" + profile.name + "</option>");
     });
     screens.show("add_action_item");
-    navigator.log.debug("Displayed add action item screen");
+    console.log("Displayed add action item screen");
 }
 
 ActionItemController.prototype.save = function(){
-    navigator.log.debug("Saving action item");
+    console.log("Saving action item");
     var title = $("#action_item_title").val();
     var task = $("#action_item_task").val();
     var assignedTo = $("#action_item_assigned_to").val();
@@ -133,7 +133,7 @@ ActionItemController.prototype.save = function(){
     devtrac.currentSite.uploaded = false;
     devtrac.dataStore.saveCurrentSite(function(){
         alert("Added action item.");
-        navigator.log.debug("Saved action item. Will display list.");
+        console.log("Saved action item. Will display list.");
         devtrac.actionItemController.show();
     });
 }

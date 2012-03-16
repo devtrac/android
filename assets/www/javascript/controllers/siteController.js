@@ -1,7 +1,7 @@
 var siteController = new Object();
 
 siteController.add = function(){
-    navigator.log.debug("Adding site.");
+    console.log("Adding site.");
 	var questions = new QuestionTypes(devtrac.questions);
 	var list = $('#sitetypes');
 	list.html("");
@@ -9,16 +9,16 @@ siteController.add = function(){
         list.append("<option>" + option + "</option>");
     });
     screens.show("add_new_site");
-	navigator.log.debug("Displayed add new site screen.");
+	console.log("Displayed add new site screen.");
 };
 
 siteController.list = function(){
-	navigator.log.debug("Displayed list of field trips.");
+	console.log("Displayed list of field trips.");
     screens.show("sites_to_visit");
 };
 
 siteController.create = function(){
-	navigator.log.debug("Creating a new site");
+	console.log("Creating a new site");
     var site = new Site();
     site.id = Math.round(new Date().getTime() / 1000);
     site.offline = true;
@@ -29,7 +29,7 @@ siteController.create = function(){
 	navigator.store.put(function(){
         alert(site.name + " added successfuly.");
 		$("#site_title").val("");
-		navigator.log.debug("Saved newly created site.");
+		console.log("Saved newly created site.");
         fieldTripController.showTripReports();
     }, function(){
         devtrac.common.logAndShowGenericError("Error in creating trip.");

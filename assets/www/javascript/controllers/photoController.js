@@ -3,18 +3,18 @@ function PhotoController(){
 }
 
 PhotoController.prototype.show = function(){
-	navigator.log.debug("Showing photo list.");
+	console.log("Showing photo list.");
     var container = $("#photo_list");
     container.html("");
     for (var path in devtrac.currentSite.photos) {
         container.append("<li><img class='thumbnail' src='" + path + "'/></li>");
     }
-	navigator.log.debug("Displayed photo screen.");
+	console.log("Displayed photo screen.");
     screens.show("photo");
 }
 
 PhotoController.prototype.attach = function(){
-    navigator.log.debug("Attaching photo.");
+    console.log("Attaching photo.");
 	var photo = $("#photo_path");
     if (photo.val()) {
         navigator.image.resize(photo.val(), 640, 480, function(path){
@@ -28,7 +28,7 @@ PhotoController.prototype.attach = function(){
         }, function(err){
             devtrac.common.logAndShowGenericError('Failed to attach image.');
         })
-		navigator.log.debug("Attached photo: " + photo.val());
+		console.log("Attached photo: " + photo.val());
         photo.val("");
     }
 }
