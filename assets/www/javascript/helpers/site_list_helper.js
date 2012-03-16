@@ -18,5 +18,5 @@ function showActionItemEditScreen(event){
 }
 
 function attachClickEvents(selector, callback){
-    $("'"+ selector +"'").click(callback);
+	$(selector).click(callback);
 }
