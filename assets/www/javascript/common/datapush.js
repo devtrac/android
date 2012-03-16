@@ -2,8 +2,8 @@ function DataPush(){
 }
 
 DataPush.prototype.uploadData = function(progressCallback, callback, errorCallback){
-    navigator.log.debug('Data sync started');
-    navigator.log.debug('Starting image upload');
+    console.log('Data sync started');
+    console.log('Starting image upload');
     devtrac.dataPush.uploadImages(progressCallback, function(msg){
         progressCallback(msg);
 
@@ -11,13 +11,13 @@ DataPush.prototype.uploadData = function(progressCallback, callback, errorCallba
             callback('Data uploaded successfully. Trip will be re-downloaded.');
             devtrac.dataPush.clearAndResync();
         }, function(srvErr){
-            navigator.log.log('Error in sync service call.');
-            navigator.log.log(srvErr);
+            console.log('Error in sync service call.');
+            console.log(srvErr);
             errorCallback(srvErr);
         });
     }, function(err){
-        navigator.log.log('Error in image upload');
-        navigator.log.log(err);
+        console.log('Error in image upload');
+        console.log(err);
         errorCallback(err);
     });
 }

@@ -9,6 +9,6 @@ LocalStore.prototype.get= function(key){
     return window.localStorage.getItem(key);	
 }
 
-LocalStore.prototype.remove= function(){
+LocalStore.prototype.remove= function(key){
 	window.localStorage.removeItem(key);
 }
