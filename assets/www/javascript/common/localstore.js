@@ -6,7 +6,7 @@ LocalStore.prototype.put= function(key, value){
 }
 
 LocalStore.prototype.get= function(key){
-    window.localStorage.getItem(key);	
+    return window.localStorage.getItem(key);	
 }
 
 LocalStore.prototype.remove= function(){
