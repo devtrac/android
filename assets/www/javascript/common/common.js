@@ -118,7 +118,7 @@ function Common(){
     }
     
     this.logAndShowGenericError = function(message){
-        //navigator.log.log(message);
+        console.log(message);
         alert("Error occured while processing. Refer to log console for more details.");
     }
     
