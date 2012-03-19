@@ -12,3 +12,7 @@ LocalStore.prototype.get= function(key){
 LocalStore.prototype.remove= function(key){
 	window.localStorage.removeItem(key);
 }
+
+LocalStore.prototype.clear= function(){
+    window.localStorage.clear();
+}
