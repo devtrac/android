@@ -57,22 +57,12 @@ LoginController.prototype.login = function(){
 
 
 LoginController.prototype.logout = function(){
-	try {
-    $.ajax({
-     url: "http://devtrac.mountbatten.net:8001/api/user/logout.json",
-     type: 'post',
-     dataType: 'json',
-     error: function (XMLHttpRequest, textStatus, errorThrown) {
-       alert('button_logout - failed to logout');
-       console.log(JSON.stringify(XMLHttpRequest));
-       console.log(JSON.stringify(textStatus));
-       console.log(JSON.stringify(errorThrown));
-     },
-     success: function (data) {
-       alert("You have been logged out.");
-     }
- });
-}
-catch (error) { alert("button_logout - " + error); }
+	logout(function(){
+		 console.log("Log out successfully");
+	},function(){
+		console.log("Log out failed");
+	})
+	
+	 devtrac.loginController.show();
 }
 
