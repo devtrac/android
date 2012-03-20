@@ -57,12 +57,12 @@ LoginController.prototype.login = function(){
 
 
 LoginController.prototype.logout = function(){
-	logout(function(){
-		 console.log("Log out successfully");
+    logout(function(){
+        console.log("Log out successfully");
 	},function(){
-		console.log("Log out failed");
-	})
-	
-	 devtrac.loginController.show();
+        console.log("Log out failed");
+    })
+
+    devtrac.loginController.show();
 }
 
