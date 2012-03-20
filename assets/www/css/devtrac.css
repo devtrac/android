@@ -83,11 +83,11 @@ input.button {
     font-weight: bold;
     cursor: pointer;
     font-family: "Lucida Grande", Verdana, Arial, "Bitstream Vera Sans", sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     margin-top: -3px;
     padding: 3px 10px;
     text-decoration: none;
-    width: 102px;
+    width: auto;
 }
 
 .content {
