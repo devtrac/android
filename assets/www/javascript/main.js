@@ -29,7 +29,6 @@ function onLoad(){
 }
 
 function init(){
-	//navigator.notification.alert("Hello world from PhoneGap");
     initializeApplicationEvents();
-    //devtrac.dataStore.init(fieldTripController.showTripReports);
+    devtrac.dataStore.init(fieldTripController.showTripReports);
 }
