@@ -345,7 +345,8 @@ DataPull.prototype.getPlaceTypeFor = function(id){
 DataPull.prototype.saveFieldtrip = function(callback){
 	devtrac.localStore.put(devtrac.user.name, JSON.stringify(devtrac.dataPull.fieldTrip));
 	devtrac.dataPull.updateStatus("Saved '" + devtrac.dataPull.fieldTrip.title + "' with action items successfully.");
-    callback();
+    setTimeout(function(){
+        callback();}, 1000);
 }
 
 var QuestionTypes = function(questions){

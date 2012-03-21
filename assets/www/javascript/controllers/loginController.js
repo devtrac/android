@@ -28,7 +28,9 @@ LoginController.prototype.login = function(){
                             return;
                         }
                         // No fieldtrip exist for user. Download the details.
-                        devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                        setTimeout(function(){
+                            devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                        }, 1000);
                     });
                 }
                 else {
@@ -40,7 +42,9 @@ LoginController.prototype.login = function(){
                                 return;
                             }
                             // No fieldtrip exist for user. Download the details.
-                            devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                            setTimeout(function(){
+                                devtrac.dataPull.tripDetails(fieldTripController.showTripReports);
+                            }, 1000);
                         });
                     });
                 }
