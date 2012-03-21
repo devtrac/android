@@ -4,16 +4,6 @@ function SettingsController(){
 
 SettingsController.prototype.show = function(){
     screens.show("settings");
-    navigator.log.getDebug(function(isDebugOn){
-        $("#log_debug_mode").attr('checked', isDebugOn);
-    });
-    if (!devtrac.user.loggedIn) {
-        $("#update_question_places").hide();
-        $("#wipe_out_data").hide();
-    } else {
-        $("#update_question_places").show();
-        $("#wipe_out_data").show();
-    }
 }
 
 SettingsController.prototype.updateQuestionsPlaces = function(){
