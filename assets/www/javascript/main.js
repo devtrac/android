@@ -23,12 +23,9 @@ var devtrac = {
 }
 
 function onLoad(){
-    /*
-   document.addEventListener("deviceready", function(){
-        navigator.notification.alert("Hello world from PhoneGap");
-   }, true);
-   */
-   init();
+    document.addEventListener("deviceready", function(){
+        init();
+    }, true);
 }
 
 function init(){
