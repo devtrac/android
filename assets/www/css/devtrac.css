@@ -22,7 +22,7 @@ h1 {
     font-size: 16px;
     font-weight: bold;
     line-height: 1em;
-    margin: 1px 0 0 10px;
+    margin: 3px 0 0 10px;
     overflow: hidden;
     text-align: center;
     text-shadow: 0 -1px 1px #000000;
@@ -170,12 +170,12 @@ p {
     color: #FFFFFF;
     padding: 6px 3px 3px 3px;
     margin-top: -15px;
-    font-size: 90%;
+    font-size: 80%;
     float: left;
     text-align: center;
     text-decoration: none;
-    width: 74px;
-    height: 21px;
+    width: 50px;
+    height: 18px;
 	cursor: pointer;
     /*-webkit-border-image: url(images/back_button.png) 0 8 0 14;
     -moz-border-image: url(images/back_button.png) 0 8 0 14;*/
@@ -214,16 +214,28 @@ p.submit {
 .grid .col1{
 	float: left;
 	padding: 5px;
-    width: 55%;
+    width: 50%;
 }
 .grid .col2{
 	float: left;
 	padding: 5px;
-    width: 25%;
+    width: 20%;
 }
 .grid .col3 {
-        float: left;
+    float: left;
+    padding: 5px;
 }
+
+.grid_2 .col1{
+    float: left;
+    padding: 5px;
+    width:50%;
+}
+.grid_2 .col2{
+    float: left;
+    padding: 5px;
+}
+
 .grid_row {
 	border-bottom: 1px solid #D6D6D6;
 	overflow: hidden;

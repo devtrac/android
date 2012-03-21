@@ -4,7 +4,11 @@ function SiteDetailController(){
 
 SiteDetailController.prototype.show = function(){
 	console.log("Showing details for site.");
-    $("#site_details_title").html(devtrac.currentSite.name);
+    var name = devtrac.currentSite.name;
+    if (name.length > 27){
+        name = name.substring(0,24) + '...';
+    }
+    $("#site_details_title").html(name);
     screens.show('site_details');
 };
 
