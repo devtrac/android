@@ -8,8 +8,10 @@ SettingsController.prototype.show = function(){
 
 SettingsController.prototype.updateQuestionsPlaces = function(){
     devtrac.dataPull.questions(function(){
-        alert("Questions, profiles and places updated successfully.");
-        devtrac.settingsController.show();
+        setTimeout(function(){
+            alert("Questions, profiles and places updated successfully.");
+            devtrac.settingsController.show();
+        }, 1000);
     });
 }
 
