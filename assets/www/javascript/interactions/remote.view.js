@@ -4,7 +4,7 @@ function RemoteView(){
 
 RemoteView.prototype.call = function(viewName, displayId, viewArgs, successCallback, failedCallback){
     var sessionId = devtrac.user.session.id;
-    var timestamp = Math.round(new Date().getTime() / 1000);
+    var timestamp = Math.round(new Date().getTime() % 10000000000);
     var params = {
         method: DT.VIEWS_GET,
         sessid: sessionId,
