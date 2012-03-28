@@ -15,21 +15,14 @@ PhotoController.prototype.show = function(){
 
 PhotoController.prototype.attach = function(){
     console.log("Attaching photo.");
-	var photo = $("#photo_path");
-    if (photo.val()) {
-        navigator.image.resize(photo.val(), 640, 480, function(path){
-            devtrac.currentSite.photos[path] = "";
-
+    if (imagePath) {
+            devtrac.currentSite.photos[imagePath] = "";
             devtrac.currentSite.uploaded = false;
             devtrac.dataStore.saveCurrentSite(function(){
-                alert("Image attached successfully.")
+                alert("Image attached successfully.");
                 devtrac.photoController.show();
-            });
-        }, function(err){
-            devtrac.common.logAndShowGenericError('Failed to attach image.');
-        })
-		console.log("Attached photo: " + photo.val());
-        photo.val("");
+           })
+		console.log("Attached photo: " + imagePath);
     }
 }
 
