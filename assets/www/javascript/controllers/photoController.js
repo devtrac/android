@@ -1,5 +1,5 @@
 function PhotoController(){
-
+    var imagePath;
 }
 
 PhotoController.prototype.show = function(){
@@ -31,4 +31,12 @@ PhotoController.prototype.attach = function(){
 		console.log("Attached photo: " + photo.val());
         photo.val("");
     }
+}
+
+function choosePhoto(){
+    navigator.camera.getPicture(function(imageURI){
+        imagePath = imageURI;
+    },function(){
+        alert('Failed on choosing photo.');
+    },{sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY});
 }
