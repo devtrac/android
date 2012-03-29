@@ -14,6 +14,51 @@ function Common(){
         return paramStr;
     }
 
+    this.XHRUpload = function(data, filePath, successCallback, errorCallback){
+        try{
+            data.uid = devtrac.user.uid;
+            data.file= $.base64.encode(readFile(filePath));
+            console.log('post data: ' + JSON.stringify(data));
+            var request = $.ajax({
+            url: DT.SERVICE_ENDPOINT,
+            type: 'post',
+            data: devtrac.common.convertHash(data),
+            dataType: 'json',
+            timeout: 30000,
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert('request failed, since '+ textStatus);
+                errorCallback();
+            },
+            success: function (data) {
+                successCallback(data);
+                console.log("Send XHR command success" + data);
+            },
+        });
+        }
+        catch(error){
+             alert("XHR error - " + error);
+        }
+    }
+
+    this.readFile = function(filePath){
+        var f = new File(filePath);
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) {
+                var contents = e.target.result;
+                alert( "Got the file.n"
+                    +"name: " + f.name + "n"
+                    +"type: " + f.type + "n"
+                    +"size: " + f.size + " bytesn"
+                    + "starts with: " + contents.substr(1, contents.indexOf("n"))
+                );
+            }
+            r.readAsText(f);
+        } else {
+        alert("Failed to load file");
+        }
+    }
+
     this.XHR = function(data, successCallback, errorCallback){
 		try{
 			console.log('post data: ' + JSON.stringify(data));

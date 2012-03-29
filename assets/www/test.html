@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+    <head></head>
+	<body>
+    	<div id="photo_screen">
+        <div class="toolbar">
+            <h1>Photo</h1>
+            <span class="back site_details_sub_screen">Back</span>
+        </div>
+        <div class="content">
+            <p>
+                <label id="photo">
+                    Browse photo
+                </label>
+                <input id="photo_path" type="file"/>
+            </p>
+            <p class="submit">
+                <input type="button" id="attach_photo" class="button" value="Attach"/>
+            </p>
+            <ul id="photo_list">
+            </ul>
+        </div>
+</div></body>
+
+<script type="text/javascript" src="javascript/lib/ext/jquery.1.4.4.min.js">
+</script>
+<script type="text/javascript">
+    var targetFile;
+    document.getElementById('photo_path').addEventListener('change', handleFileSelect, false);
+
+    function handleFileSelect(e){
+        targetFile = e.target.files[0];
+    }
+
+    function readBlob(file) {
+    var reader = new FileReader();
+
+    // If we use onloadend, we need to check the readyState.
+    reader.onloadend = function(evt) {
+        if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+            alert('onloadend');
+            alert(evt.target.result);
+        }
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  document.querySelector('#attach_photo').addEventListener('click', function(evt) {
+      readBlob(targetFile);
+  }, false);
+
+ </script>
+ </html>
