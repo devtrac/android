@@ -6,6 +6,16 @@ PhotoUpload.prototype.upload = function(filePath, successCallback, errorCallback
     var userId = devtrac.user.uid;
     var timestamp = Math.round(new Date().getTime() / 1000);
     var fileUploadPath = DT.FILE_UPLOAD_PATH.replace('<UID>', userId)
+
+    var imageData = 'abc';
+
+    var file = {
+        uid: userId,
+        timestamp: timestamp,
+        filemime: 'image/png',
+        file: encodeURI(imageData)
+    };
+
     var params = {
         method: DT.FILE_SAVE,
         sessid: sessionId,
@@ -13,12 +23,13 @@ PhotoUpload.prototype.upload = function(filePath, successCallback, errorCallback
         domain_time_stamp: timestamp,
         api_key: DT.API_KEY,
         nonce: timestamp,
-        hash: devtrac.common.generateHash(DT.FILE_SAVE, timestamp)
+        hash: devtrac.common.generateHash(DT.FILE_SAVE, timestamp),
+        file: JSON.stringify(file)
     }
     var paramsHash = devtrac.common.convertHash(params);
-    devtrac.common.XHRUpload({}, filePath, function(response){
-          successCallback(response["#data"]);
-      }, errorCallback);
+    devtrac.common.XHR(DT.SERVICE_ENDPOINT, paramsHash, filePath, userId, fileUploadPath, function(response){
+	        successCallback(response["#data"]);
+	    }, errorCallback);
 }
 
 PhotoUpload.prototype.uploadMultiple = function(filePaths, successCallback, progressCallback, errorCallback){
