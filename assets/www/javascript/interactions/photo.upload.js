@@ -14,13 +14,14 @@ PhotoUpload.prototype.uploadImage = function(imageData, successCallback, errorCa
     var timestamp = Math.round(new Date().getTime() / 1000);
     var fileUploadPath = DT.FILE_UPLOAD_PATH.replace('<UID>', userId)
 
-    var imageData = 'abc';
-
     var file = {
         uid: userId,
         timestamp: timestamp,
         filemime: 'image/png',
-        file: encodeURI(imageData)
+        filesize: imageData.length,
+        filename: "river.png",
+        filepath: fileUploadPath + "river.png",
+        file: encodeURIComponent(imageData)
     };
 
     var params = {
