@@ -35,24 +35,24 @@ PhotoUpload.prototype.uploadImage = function(filename, imageData, successCallbac
         file: JSON.stringify(file)
     }
     devtrac.common.callService(params, function(response){
-	        successCallback(response["#data"]);
-	    }, errorCallback);
+            successCallback(response["#data"]);
+        }, errorCallback);
 }
 
 PhotoUpload.prototype.uploadMultiple = function(filePaths, successCallback, progressCallback, errorCallback){
-	devtrac.photoUpload._uploadInternal(filePaths, {}, successCallback, progressCallback, errorCallback);
+    devtrac.photoUpload._uploadInternal(filePaths, {}, successCallback, progressCallback, errorCallback);
 }
 
 PhotoUpload.prototype._uploadInternal = function(filePaths, uploadedFiles, successCallback, progressCallback, errorCallback){
-	var fileToUpload = filePaths.pop();
-	if(fileToUpload){
-		devtrac.photoUpload.upload(fileToUpload,function(fid){
-			uploadedFiles[fileToUpload] = fid;
-			if(progressCallback)
-				progressCallback(uploadedFiles,fileToUpload, fid);
-			devtrac.photoUpload._uploadInternal(filePaths, uploadedFiles, successCallback, progressCallback, errorCallback);
-		}, errorCallback);
-	} else {
-		successCallback(uploadedFiles);
-	}
+    var fileToUpload = filePaths.pop();
+    if(fileToUpload){
+        devtrac.photoUpload.upload(fileToUpload,function(fid){
+            uploadedFiles[fileToUpload] = fid;
+            if(progressCallback)
+                progressCallback(uploadedFiles,fileToUpload, fid);
+            devtrac.photoUpload._uploadInternal(filePaths, uploadedFiles, successCallback, progressCallback, errorCallback);
+        }, errorCallback);
+    } else {
+        successCallback(uploadedFiles);
+    }
 }

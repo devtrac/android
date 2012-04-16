@@ -2,7 +2,7 @@ function Common(){
     this.callService = function(data, callback, errorCallback){
         this.XHR(data, callback, errorCallback);
     }
-    
+
     this.convertHash = function(hash){
         var paramStr = "";
         for (param in hash) {
@@ -60,14 +60,14 @@ function Common(){
     }
 
     this.XHR = function(data, successCallback, errorCallback){
-		try{
-			console.log('post data: ' + JSON.stringify(data));
-			var request = $.ajax({
+        try{
+            console.log('post data: ' + JSON.stringify(data));
+            var request = $.ajax({
             url: DT.SERVICE_ENDPOINT,
             type: 'post',
             data: devtrac.common.convertHash(data),
             dataType: 'json',
-			timeout: 180000,
+            timeout: 180000,
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 errorCallback('Request failed, since '+ textStatus);
             },
@@ -75,20 +75,20 @@ function Common(){
                 successCallback(data);
             }
         });
-		}
-		catch(error){
-			 alert("XHR error - " + error); 
-		}
+        }
+        catch(error){
+             alert("XHR error - " + error);
+        }
     }
-    
+
     this.generateHash = function(method, timestamp){
         return Crypto.HMAC(Crypto.SHA256, timestamp + ";" + DT.DOMAIN + ";" + timestamp + ";" + method, DT.API_KEY)
     }
-    
-	this.newHasError = function(response){
-		return false;
-	}
-	
+
+    this.newHasError = function(response){
+        return false;
+    }
+
     this.hasError = function(response){
         if (response["#error"]) {
             return true;
@@ -108,7 +108,7 @@ function Common(){
             }
         }
     }
-    
+
     this.getErrorMessage = function(response){
         if (response["#error"]) {
             if (response["#message"]) {
@@ -138,7 +138,7 @@ function Common(){
             }
         }
     }
-    
+
     this.getOneMonthLaterDate = function(){
         var now = new Date();
         var oneMonthLater = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
@@ -147,24 +147,24 @@ function Common(){
         var year = '' + oneMonthLater.getFullYear();
         return day + '/' + month + '/' + year;
     }
-    
+
     this.errorHandler = function(errMsg, url, lineNum){
         alert(errMsg);
         var errorMessage = 'UnCaughtException: ' + errMsg;
-        if (url) 
+        if (url)
             errorMessage += ' for page: ' + url;
-        if (lineNum) 
+        if (lineNum)
             errorMessage += ' on Line# ' + lineNum;
         alert(errorMessage);
         navigator.log.log(errorMessage);
         return false;
     }
-    
+
     this.logAndShowGenericError = function(message){
         console.log(message);
         alert("Error occured while processing. Refer to log console for more details.");
     }
-    
+
     this.validateAssignedTo = function(assignedValue){
         for (var index in devtrac.profiles) {
             var profile = devtrac.profiles[index];
@@ -174,7 +174,7 @@ function Common(){
         }
         return devtrac.user.name;
     }
-    
+
     this.findPlaceType = function(site){
         if (site.offline) {
             for (var index in devtrac.places) {
