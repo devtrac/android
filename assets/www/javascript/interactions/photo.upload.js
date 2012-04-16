@@ -26,8 +26,7 @@ PhotoUpload.prototype.upload = function(filePath, successCallback, errorCallback
         hash: devtrac.common.generateHash(DT.FILE_SAVE, timestamp),
         file: JSON.stringify(file)
     }
-    var paramsHash = devtrac.common.convertHash(params);
-    devtrac.common.XHR(DT.SERVICE_ENDPOINT, paramsHash, filePath, userId, fileUploadPath, function(response){
+    devtrac.common.callService(params, function(response){
 	        successCallback(response["#data"]);
 	    }, errorCallback);
 }
