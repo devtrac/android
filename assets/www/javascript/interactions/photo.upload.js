@@ -3,12 +3,12 @@ function PhotoUpload(){
 
 PhotoUpload.prototype.upload = function(filePath, successCallback, errorCallback){
     var photoReader = new PhotoReader();
-    photoReader.readFile(filePath, function(imageData) {
-        devtrac.photoUpload.uploadImage(imageData, successCallback, errorCallback);
+    photoReader.readFile(filePath, function(filename, imageData) {
+        devtrac.photoUpload.uploadImage(filename, imageData, successCallback, errorCallback);
     }, errorCallback);
 }
 
-PhotoUpload.prototype.uploadImage = function(imageData, successCallback, errorCallback){
+PhotoUpload.prototype.uploadImage = function(filename, imageData, successCallback, errorCallback){
     var sessionId = devtrac.user.session.id;
     var userId = devtrac.user.uid;
     var timestamp = Math.round(new Date().getTime() / 1000);
@@ -19,8 +19,8 @@ PhotoUpload.prototype.uploadImage = function(imageData, successCallback, errorCa
         timestamp: timestamp,
         filemime: 'image/png',
         filesize: imageData.length,
-        filename: "river.png",
-        filepath: fileUploadPath + "river.png",
+        filename: filename,
+        filepath: fileUploadPath + filename,
         file: encodeURIComponent(imageData)
     };
 
