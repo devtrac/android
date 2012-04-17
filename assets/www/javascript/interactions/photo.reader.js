@@ -13,7 +13,7 @@ function PhotoReader(){
         fileEntry.file(function(file) {
             var reader = new FileReader();
             reader.onloadend = function(evt) {
-                _successCallback(file.name, evt.target.result.substring(evt.target.result.indexOf(",") + 1));
+                _successCallback(file.name, file.type, evt.target.result.substring(evt.target.result.indexOf(",") + 1));
             };
             reader.readAsDataURL(file);
         }, function(error){

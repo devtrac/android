@@ -3,12 +3,12 @@ function PhotoUpload(){
 
 PhotoUpload.prototype.upload = function(filePath, successCallback, errorCallback){
     var photoReader = new PhotoReader();
-    photoReader.readFile(filePath, function(filename, imageData) {
-        devtrac.photoUpload.uploadImage(filename, imageData, successCallback, errorCallback);
+    photoReader.readFile(filePath, function(filename, filemime, imageData) {
+        devtrac.photoUpload.uploadImage(filename, filemime, imageData, successCallback, errorCallback);
     }, errorCallback);
 }
 
-PhotoUpload.prototype.uploadImage = function(filename, imageData, successCallback, errorCallback){
+PhotoUpload.prototype.uploadImage = function(filename, filemime, imageData, successCallback, errorCallback){
     var sessionId = devtrac.user.session.id;
     var userId = devtrac.user.uid;
     var timestamp = Math.round(new Date().getTime() / 1000);
@@ -17,7 +17,7 @@ PhotoUpload.prototype.uploadImage = function(filename, imageData, successCallbac
     var file = {
         uid: userId,
         timestamp: timestamp,
-        filemime: 'image/png',
+        filemime: filemime,
         filesize: imageData.length,
         filename: filename,
         filepath: fileUploadPath + filename,
