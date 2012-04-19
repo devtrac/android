@@ -26,14 +26,11 @@ siteController.create = function(){
     site.type = $("#sitetypes").val();
     site.narrative = "Please provide a full report.";
 	devtrac.fieldTrip.sites.push(site);
-	navigator.store.put(function(){
-        alert(site.name + " added successfuly.");
-		$("#site_title").val("");
-		console.log("Saved newly created site.");
-        fieldTripController.showTripReports();
-    }, function(){
-        devtrac.common.logAndShowGenericError("Error in creating trip.");
-        screens.show("sites_to_visit");
-    }, devtrac.user.name, JSON.stringify(devtrac.fieldTrip));
+
+    devtrac.localStore.put(devtrac.user.name, JSON.stringify(devtrac.fieldTrip));
+    alert(site.name + " added successfuly.");
+    $("#site_title").val("");
+    console.log("Saved newly created site.");
+    fieldTripController.showTripReports();
 }
 
